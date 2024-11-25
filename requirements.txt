@@ -1,0 +1,8 @@
+PyQt5==5.15.7
+openai==0.27.0
+pyaudio==0.2.13
+wave==0.20.0
+audioop==1.1.0
+pyperclip==1.8.2
+pynput==1.7.6
+python-dotenv==1.0.0
