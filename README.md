@@ -37,6 +37,45 @@ pynput
 python-dotenv
 ```
 
+### Architecture setup
+```mermaid
+flowchart LR
+    subgraph Architecture
+        subgraph "UI/Interaction Layer"
+            ui["Main Window"]
+            buttons["Buttons, Dropdowns"]
+            summary["Text Summary Display"]
+        end
+
+        subgraph "Audio Processing Layer"
+            recording["Audio Recording"]
+            silence-detection["Silence Detection"]
+            transcription["OpenAI Transcription"]
+        end
+
+        subgraph "Text Processing Layer"
+            rewriting["OpenAI Text Rewriting"]
+        end
+
+        subgraph "Configuration and Utility Layer"
+            config["Application Configuration"]
+            utilities["File I/O, Text Manipulation"]
+        end
+    end
+
+    start["User Interaction"] --> setup-options["Set Transcription/Rewriting Options"]
+    setup-options --> start-transcription["Start Transcription"]
+    start-transcription --> recording
+    recording --> silence-detection
+    silence-detection --> transcription
+    transcription --> display-transcription["Display Transcribed Text"]
+    display-transcription --> rewrite-text["Rewrite Text"]
+    rewrite-text --> openai-rewriting["OpenAI Text Rewriting"]
+    openai-rewriting --> display-rewritten["Display Rewritten Text & Copy to Clipboard"]
+    display-rewritten --> continuous["Continuous Transcription?"]
+    continuous -- Yes --> start-transcription
+```
+
 ### Environment Setup
 
 1. Create a `.env` file in the root directory.
